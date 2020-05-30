@@ -1,0 +1,45 @@
+import static org.testng.Assert.assertEquals;
+
+import java.util.List;
+
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+
+public class JSONParsing {
+
+    @Test
+    public void testJsonParsing() {
+        RestAssured.baseURI = "https://apiproxy.paytm.com/v2/movies";
+        Response response = null;
+
+        try {
+            response = RestAssured.given()
+                .when()
+                .get("/upcoming");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    
+        
+
+        //Creation of JsonPath object
+        JsonPath jsonPathValidator = response.jsonPath();
+        
+        JsonPath extractor =response.jsonPath();
+        
+        String releaseDate=extractor.get("releaseDate");
+        
+
+        List < String > upcomingMovieData = jsonPathValidator.getList("upcomingMovieData");
+        
+        for (String i: releaseDate) {
+        	
+        	String releaseDate1=extractor.get("releaseDate");
+            System.out.println(releaseDate1);
+        }
+    }
+}
